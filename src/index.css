@@ -1,0 +1,333 @@
+/* =========================
+   Custom Fonts: Joe Text
+   ========================= */
+
+@font-face {
+  font-family: "Joe Text";
+  src: url("./assets/fonts/Joe_Text-Regular.woff2") format("woff2"),
+       url("./assets/fonts/Joe_Text-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Joe Text";
+  src: url("./assets/fonts/Joe_Text-Medium.woff2") format("woff2"),
+       url("./assets/fonts/Joe_Text-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Joe Text";
+  src: url("./assets/fonts/Joe_Text-Bold.woff2") format("woff2"),
+       url("./assets/fonts/Joe_Text-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* =========================
+   Global Reset
+   ========================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* =========================
+   Global Theme
+   ========================= */
+
+body {
+  font-family: "Joe Text", sans-serif;
+  background-color: #000000;
+  color: #ffffff;
+  line-height: 1.5;
+}
+
+/* =========================
+   Typography Scale
+   ========================= */
+
+h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 20px;
+}
+
+h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 16px;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+p,
+label,
+input,
+textarea,
+select,
+td {
+  font-size: 14px;
+}
+
+label {
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+/* =========================
+   Form Controls
+   ========================= */
+
+input,
+textarea,
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-color: #ffffff;
+  color: #000000;
+
+  border: 1px solid #000000;
+  border-radius: 6px;
+
+  padding: 10px 36px 10px 10px;
+
+  font-family: inherit;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #9aa4b2;
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Select dropdown arrow */
+select {
+  background-image: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'>\
+<path d='M1 1l5 5 5-5' stroke='black' stroke-width='2' fill='none' stroke-linecap='round'/>\
+</svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px 8px;
+}
+
+/* =========================
+   Buttons – Base
+   ========================= */
+
+button {
+  appearance: none;
+  background: none;
+  border: none;
+
+  font-family: "Joe Text", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  height: 40px;
+  padding: 0 24px;
+  border-radius: 999px;
+
+  box-sizing: border-box;
+
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.05s ease;
+}
+
+/* =========================
+   Button Variants
+   ========================= */
+
+/* Primary */
+.button-primary {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.button-primary:hover:not(:disabled) {
+  background-color: #3BE168;
+}
+
+.button-primary:active:not(:disabled) {
+  background-color: #6EF29A;
+  transform: translateY(1px);
+}
+
+.button-primary:disabled {
+  background-color: #2F2F2F;
+  color: #6B6B6B;
+  cursor: not-allowed;
+}
+
+/* Secondary */
+.button-secondary {
+  background-color: transparent;
+  color: #ffffff;
+  border: 2px solid #E5E5E5;
+}
+
+.button-secondary:hover:not(:disabled) {
+  background-color: #1C1C1C;
+}
+
+.button-secondary:active:not(:disabled) {
+  background-color: #2A2A2A;
+  transform: translateY(1px);
+}
+
+.button-secondary:disabled {
+  border-color: #2F2F2F;
+  color: #6B6B6B;
+  cursor: not-allowed;
+}
+
+/* =========================
+   Ticket Preview
+   ========================= */
+
+.preview-wrapper {
+  position: relative;
+  border-radius: 12px;
+  isolation: isolate;
+}
+
+.preview-wrapper::before,
+.preview-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--gradient-angle),
+    #00D639,
+    #11AFFF,
+    #8F49FE,
+    #00D639
+  );
+  animation: rotate-gradient 8s linear infinite;
+  pointer-events: none;
+}
+
+.preview-wrapper::after {
+  inset: -14px;
+  filter: blur(22px);
+  opacity: 0.6;
+}
+
+.preview {
+  background-color: #ffffff;
+  color: #000000;
+  border-radius: 10px;
+  padding: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+/* =========================
+   Preview links
+   ========================= */
+
+.preview a {
+  color: #008146;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.preview a:hover {
+  color: #00a85a;
+}
+
+.preview a:focus-visible {
+  outline: 2px solid #008146;
+  outline-offset: 2px;
+}
+
+/* =========================
+   Loader
+   ========================= */
+
+.loader {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.loader::before,
+.loader::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+
+.loader::before {
+  background: #0b3d1a;
+  mask: radial-gradient(farthest-side, transparent 75%, #000 76%);
+}
+
+.loader::after {
+  background: #00D639;
+  mask:
+    conic-gradient(#000 20%, transparent 0),
+    radial-gradient(farthest-side, transparent 75%, #000 76%);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rotate-gradient {
+  to { --gradient-angle: 360deg; }
+}
+
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* =========================
+   Reduced motion
+   ========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .loader::after,
+  .preview-wrapper::before,
+  .preview-wrapper::after {
+    animation: none;
+  }
+}
