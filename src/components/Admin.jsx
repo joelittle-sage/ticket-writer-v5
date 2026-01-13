@@ -44,7 +44,6 @@ function Admin() {
   if (!isUnlocked) {
     return (
       <div className="admin-page" style={{ maxWidth: 420, margin: "120px auto", textAlign: "center" }}>
-        <img src={SageLogo} alt="Sage" style={{ height: 40, marginBottom: 24 }} />
         <h1>Admin</h1>
 
         <input
@@ -189,9 +188,6 @@ function Admin() {
 
   return (
     <div className="admin-page" style={{ maxWidth: 1200, margin: "20px auto", padding: "0 24px" }}>
-      <div style={{ textAlign: "center", marginBottom: 20 }}>
-        <img src={SageLogo} alt="Sage" style={{ height: 40 }} />
-      </div>
 
       <h1>Admin Settings</h1>
 
