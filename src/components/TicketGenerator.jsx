@@ -14,8 +14,6 @@ function TicketGenerator() {
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
 
-  const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
-
   // Load config from localStorage
   useEffect(() => {
     setTeams(JSON.parse(localStorage.getItem("teams")) || []);
@@ -41,61 +39,55 @@ function TicketGenerator() {
     generatedTicket; 
 
   const handleGenerateTicket = async () => {
-    if (!selectedType) return;
+  if (!selectedType) return;
 
-    setIsGenerating(true);
-    setError("");
-    setGeneratedTicket("");
-    setCopied(false);
+  setIsGenerating(true);
+  setError("");
+  setGeneratedTicket("");
+  setCopied(false);
 
-    try {
-      const response = await fetch(
-        "https://api.openai.com/v1/chat/completions",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${OPENAI_API_KEY}`,
-          },
-          body: JSON.stringify({
-            model: "gpt-4o-mini",
-            messages: [
-              {
-                role: "system",
-                content:
-                  "You are a product analyst writing high-quality Jira tickets in HTML. Only return valid HTML. Do not include explanations.",
-              },
-              {
-                role: "user",
-                content: `
-Ticket template:
-${selectedType.template}
+  try {
+    let data;
 
-User input:
-${rawInput}
+    if (import.meta.env.DEV) {
+      // ✅ LOCAL DEV MOCK
+      await new Promise((r) => setTimeout(r, 500));
+      data = {
+        html: `
+          <h2>LOCAL DEV OK</h2>
+          <p><strong>Template:</strong></p>
+          <pre>${selectedType.template}</pre>
+          <p><strong>Input:</strong></p>
+          <p>${rawInput}</p>
+        `,
+      };
+    } else {
+      // ✅ PRODUCTION (VERCEL)
+      const response = await fetch("/api/generate-ticket", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          template: selectedType.template,
+          input: rawInput,
+        }),
+      });
 
-Rewrite the user input into the template. Preserve headings and structure. Return HTML only.
-                `,
-              },
-            ],
-            temperature: 0.3,
-          }),
-        }
-      );
-
-      const data = await response.json();
+      data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error?.message || "OpenAI error");
+        throw new Error(data.error || "API error");
       }
-
-      setGeneratedTicket(data.choices[0].message.content);
-    } catch (err) {
-      setError("Ticket generation failed. Please try again.");
-    } finally {
-      setIsGenerating(false);
     }
-  };
+
+    setGeneratedTicket(data.html || data.choices?.[0]?.message?.content);
+  } catch (err) {
+    console.error(err);
+    setError("Ticket generation failed. Please try again.");
+  } finally {
+    setIsGenerating(false);
+  }
+};
+
 
   const handleClear = () => {
     setSelectedTeam("");

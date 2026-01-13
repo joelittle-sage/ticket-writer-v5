@@ -3,5 +3,9 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/ticket-writer-v5/",
+  server: {
+    proxy: {
+      "/api": "http://localhost:3000",
+    },
+  },
 });
